@@ -6,6 +6,8 @@ import (
 
 	"github.com/chanced/caps"
 	"google.golang.org/protobuf/compiler/protogen"
+	"google.golang.org/protobuf/types/descriptorpb"
+	"google.golang.org/protobuf/types/pluginpb"
 
 	"github.com/weave-labs/protoc-plugin/pkg/plugin"
 )
@@ -82,6 +84,14 @@ func (g *Generator) Name() string {
 
 func (g *Generator) Version() string {
 	return PluginVersion
+}
+
+func (g *Generator) Features() uint64 {
+	return uint64(pluginpb.CodeGeneratorResponse_FEATURE_SUPPORTS_EDITIONS)
+}
+
+func (g *Generator) SupportedEditionsRange() (descriptorpb.Edition, descriptorpb.Edition) {
+	return descriptorpb.Edition_EDITION_PROTO3, descriptorpb.Edition_EDITION_2024
 }
 
 const sqlPartsNeed = 3

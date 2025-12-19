@@ -4,6 +4,7 @@ import (
 	"flag"
 
 	"google.golang.org/protobuf/compiler/protogen"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 type Generator interface {
@@ -11,4 +12,6 @@ type Generator interface {
 	Generate(gen *protogen.Plugin) error
 	Name() string
 	Version() string
+	Features() uint64
+	SupportedEditionsRange() (descriptorpb.Edition, descriptorpb.Edition)
 }

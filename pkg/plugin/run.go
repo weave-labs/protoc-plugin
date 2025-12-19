@@ -41,6 +41,9 @@ func Run(r io.Reader, w io.Writer, generator Generator) error {
 		return fmt.Errorf("failed to create generator: %w", err)
 	}
 
+	plugin.SupportedFeatures = generator.Features()
+	plugin.SupportedEditionsMinimum, plugin.SupportedEditionsMaximum = generator.SupportedEditionsRange()
+
 	if err := generator.Generate(plugin); err != nil {
 		return fmt.Errorf("failed to generate: %w", err)
 	}
